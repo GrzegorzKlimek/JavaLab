@@ -22,7 +22,7 @@ public class Customer {
 	public long getNIP() {
 		return NIP;
 	}
-	public void setNIP(int nIP) {
+	public void setNIP(long nIP) {
 		NIP = nIP;
 	}
 	public long getTelephone() {

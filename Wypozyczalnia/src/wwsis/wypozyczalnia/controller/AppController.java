@@ -39,7 +39,7 @@ public class AppController {
 		
 	}
 	
-	public void addNewCustomer (int NIP, String name, String lastName, long telephone) {
+	public void addNewCustomer (long NIP, String name, String lastName, long telephone) {
 		
 		Customer newCustomer = new Customer();
 		newCustomer.setNIP(NIP);
@@ -60,6 +60,10 @@ public class AppController {
 			}
 		}
 		return result;
+	}
+	
+	public boolean doCustomerExist (long NIP) {
+		return db.getCustomers().containsKey(NIP);
 	}
 	
 
