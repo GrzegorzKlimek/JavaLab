@@ -1,24 +1,12 @@
 package wwsis.wypozyczalnia.model;
 
 public class Customer {
-	static private int globalID = 0;
-	private int customerID;
+	
+	private long  NIP; // NIP is ID of customer
 	private String name;
 	private String lastName;
-	private int  NIP;
 	long telephone;
 	
-	Customer () {
-		customerID = globalID;
-		globalID ++;
-	}
-	
-	public int getCustomerID() {
-		return customerID;
-	}
-	public void setCustomerID(int customerID) {
-		this.customerID = customerID;
-	}
 	public String getName() {
 		return name;
 	}
@@ -31,7 +19,7 @@ public class Customer {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public int getNIP() {
+	public long getNIP() {
 		return NIP;
 	}
 	public void setNIP(int nIP) {

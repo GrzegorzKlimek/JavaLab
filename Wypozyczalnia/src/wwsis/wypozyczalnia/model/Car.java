@@ -7,7 +7,7 @@ public class Car {
 	int course;
 	int cariD;
 	
-	Car() {
+	public Car() {
 		cariD = globalID;
 		globalID ++;
 	}

@@ -10,10 +10,10 @@ import wwsis.wypozyczalnia.model.Renting;
 public class DataBase {
 	
 	private Map<Integer, Car> cars;
-	private Map <Integer, Customer> customers;
+	private Map <Long, Customer> customers;
 	private Map <Integer, Renting> rentings;
 	
-	DataBase() {
+	public DataBase() {
 		cars = new HashMap<>();
 		customers = new HashMap<>();
 		rentings = new HashMap<>();
@@ -35,6 +35,21 @@ public class DataBase {
 		return cars.get(carID);
 	}
 	
-	// public void saveRenting ()
+	public void saveRent (Renting rent) {
+		rentings.put(rent.getRentID(), rent);
+	}
+
+	public Map<Integer, Car> getCars() {
+		return cars;
+	}
+
+	public Map<Long, Customer> getCustomers() {
+		return customers;
+	}
+
+	public Map<Integer, Renting> getRentings() {
+		return rentings;
+	}
+	
 
 }

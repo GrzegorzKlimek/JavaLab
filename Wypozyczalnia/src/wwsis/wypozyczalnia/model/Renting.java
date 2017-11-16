@@ -6,13 +6,13 @@ public class Renting {
 	private static int globalID = 0;
 	private int rentID;
 	private int carID;
-	private Customer customerID;
+	private long customerID;
 	private LocalDate start;
 	private LocalDate end;
 	private boolean isEnded;
 	private int cost;
 	
-	Renting () {
+	public Renting () {
 		rentID = globalID;
 		globalID ++;
 	}
@@ -28,11 +28,11 @@ public class Renting {
 	public void setCarID(int carID) {
 		this.carID = carID;
 	}
-	public Customer getCustomerID() {
+	public long getCustomerNIP() {
 		return customerID;
 	}
-	public void setCustomerID(Customer customerID) {
-		this.customerID = customerID;
+	public void setCustomerNIP(long i) {
+		this.customerID = i;
 	}
 	public LocalDate getStart() {
 		return start;
@@ -49,7 +49,7 @@ public class Renting {
 	public boolean isEnded() {
 		return isEnded;
 	}
-	public void setEnded(boolean isEnded) {
+	public void setisEnded(boolean isEnded) {
 		this.isEnded = isEnded;
 	}
 	public int getCost() {
