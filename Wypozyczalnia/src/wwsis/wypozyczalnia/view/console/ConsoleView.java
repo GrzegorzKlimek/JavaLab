@@ -40,6 +40,7 @@ public class ConsoleView implements View {
 
 		controller.addNewCustomer(nip, name, lastName, telephone);
 	}
+	
 
 	private void makeReservation() throws NumberFormatException, IOException {
 		System.out.println("Give your NIP");
