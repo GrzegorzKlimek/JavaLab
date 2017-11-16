@@ -10,7 +10,7 @@ public class Ex2 {
 		System.out.println("Podaj wpolrzedno y pierwszego punktu");
 		double y1 = (double) Integer.parseInt(input.readLine());
 		System.out.println("Podaj wpolrzedno x drugiego punktu");
-		double x2 = (double) Integer.parseInt(input.readLine());
+		double x2 = (double) Integer.parseInt(input.readLine()); 
 		System.out.println("Podaj wpolrzedno y drugiego punktu");
 		double y2 = (double) Integer.parseInt(input.readLine());
 		
