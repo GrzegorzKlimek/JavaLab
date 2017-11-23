@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import javax.print.attribute.standard.NumberUp;
+
 import wwsis.wypozyczalnia.controller.AppController;
 import wwsis.wypozyczalnia.view.View;
 
@@ -29,51 +31,49 @@ public class ConsoleView implements View {
 	}
 
 	private void addNewCustomer() throws IOException {
-		System.out.println("give NIP of new customer");
+		System.out.println("give your NIPr");
 		long nip = Long.parseLong(br.readLine());
-		System.out.println("Give name of new customer");
+		System.out.println("Give  your name");
 		String name = br.readLine();
-		System.out.println("Give last name of new customer");
+		System.out.println("Give your last name");
 		String lastName = br.readLine();
-		System.out.println("Give numbert of new customer");
+		System.out.println("Give lour telephone number");
 		long telephone = Long.parseLong(br.readLine());
 
 		controller.addNewCustomer(nip, name, lastName, telephone);
 	}
 	
-
-	private void makeReservation() throws NumberFormatException, IOException {
+	private Long getNIPFromUser() throws IOException {
+		
 		System.out.println("Give your NIP");
-		long customerID;
-		boolean customerExist;
-		do {
-			customerID = Long.parseLong(br.readLine());
-			customerExist = controller.doCustomerExist(customerID);
-			if (!customerExist) {
-				System.out.println(
-						"You are not in the system. You need to register first" + "If you want to register press 'r'"
-								+ "If you want to try again press 'c'" + "If you want go back press anything else");
-				String decision = br.readLine();
-				switch (decision) {
-				case "r":
-					addNewCustomer();
-					break;
-				case "c":
-					break;
-				default:
-					return;
-				}
-			}
 
-		} while (!customerExist);
+		return Long.parseLong(br.readLine());
+		
+	}
+	
+
+	private void makeReservation() {
 
 	}
 
 	@Override
-	public void run() {
-		boolean programIsterminated = false;
-		while (!programIsterminated) {
-
+	public void run()  {
+		boolean programIsNotTerminated = true;
+		
+		while (programIsNotTerminated) {
+			try {
+				String decision = br.readLine();
+				switch (decision) {
+				case "customer":
+					break;
+				case "reser":
+					break;
+				case "d":
+					break;
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
