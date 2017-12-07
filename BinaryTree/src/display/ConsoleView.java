@@ -10,14 +10,19 @@ public class ConsoleView {
 	public static void main (String [] args) {
 		BinaryTree tree = new BinaryTree();
 		
-		Random r = new Random();
-		for (int i = 0; i < 10; i++) {
-			String key = Integer.toString(r.nextInt(65));
-			String value = Integer.toString(r.nextInt(65));
-			tree.add(key, value);
+		String [] keys = {"u", "ga", "yh", "kf", "g", "z"};
+		String [] values = {"5", "6", "7", "8", "9", "10"};
+		for (int i = 0; i < keys.length; i++) {
+
+			tree.add(keys[i], values[i]);
 		}
-		List<List<Node>> listOfTree = tree.BSF();
-		System.out.println(listOfTree);
+		System.out.println();
+
+		
+		tree.print();
+		int s = 4;
+		System.out.println(s);
+
 	}
 
 }

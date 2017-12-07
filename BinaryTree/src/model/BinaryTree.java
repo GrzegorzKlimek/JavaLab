@@ -19,8 +19,8 @@ public class BinaryTree    {
 	public void add (String newKey, String newValue) {
 		size ++;
 		Node newNode =  new Node();
-		newNode.setKey(newValue);
-		newNode.setValue(newKey);
+		newNode.setKey(newKey);
+		newNode.setValue(newValue);
 		
 		if (root == null) {
 			root = newNode;
@@ -30,23 +30,34 @@ public class BinaryTree    {
 	}
 	
 	private void insert(Node insertNode, Node rootNode) {
-		if (insertNode.compareTo(rootNode) > 0) {
-			if (rootNode.getRight() == null) {
-				rootNode.setRight(insertNode);
-			} else {
-				insert(insertNode, rootNode.getRight());
-			}
-			
-		} else {
-			if (rootNode.getLeft()== null) {
+		
+		int diffrence = insertNode.compareTo(rootNode);
+
+		if (diffrence < 0) {
+			if (rootNode.getLeft() == null) {
 				rootNode.setLeft(insertNode);
+				insertNode.setFather(rootNode);
 			} else {
 				insert(insertNode, rootNode.getLeft());
 			}
+		} else if (diffrence == 0) {
+
+			rootNode.setValue(insertNode.getValue());
+		} else {
+
+			if (rootNode.getRight() == null) {
+				rootNode.setRight(insertNode);
+				insertNode.setFather(rootNode);
+			} else {
+				insert(insertNode, rootNode.getRight());
+			}
+
 		}
+		
+		
 	}
 	
-	public List< List<Node> > BSF () {
+	private List< List<Node> > BSF () {
 		List< List<Node> > result = new ArrayList<List<Node>>();
 		List<Node> upperLevel = new ArrayList<Node>();
 		if (root != null) {
@@ -71,6 +82,16 @@ public class BinaryTree    {
 	
 		}
 		return result;
+	}
+	public void print( ) {
+		List<List<Node>> nodes = BSF();
+		for (int i = 0; i < nodes.size(); i++) {
+			List<Node> row = nodes.get(i);
+			for(int j = 0; j < row.size(); j++) {
+				System.out.print(row.get(j) + " | ");
+			}
+			System.out.println();
+		}
 	}
 
 	
