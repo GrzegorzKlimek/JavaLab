@@ -20,8 +20,8 @@ public class ConsoleView {
 
 		
 		tree.print();
-		int s = 4;
-		System.out.println(s);
+		System.out.println(tree.get("ga"));
+
 
 	}
 

@@ -29,6 +29,26 @@ public class BinaryTree    {
 		}
 	}
 	
+	public String get (String key) {
+		String result = root != null ? findValueForKey(key, root): null;
+		return result;
+	}
+	
+	private String findValueForKey (String key, Node currentNode) {
+		int diffrence = key.compareTo(currentNode.getKey());
+		String result;
+		if (diffrence == 0) {
+			result = currentNode.getValue();
+		} else if (diffrence > 0) {
+			 result = currentNode.getRight() != null ? findValueForKey(key, currentNode.getRight()) : null;
+			
+		} else {
+			result = currentNode.getLeft() != null ? findValueForKey(key, currentNode.getLeft()) : null;
+			
+		}
+		return result;
+	}
+	
 	private void insert(Node insertNode, Node rootNode) {
 		
 		int diffrence = insertNode.compareTo(rootNode);
@@ -83,6 +103,7 @@ public class BinaryTree    {
 		}
 		return result;
 	}
+	
 	public void print( ) {
 		List<List<Node>> nodes = BSF();
 		for (int i = 0; i < nodes.size(); i++) {
