@@ -16,7 +16,7 @@ public class BinaryTree    {
 		size = 0;
 	}
 	
-	public int getSize() {
+	public int size() {
 		return size;
 	}
 	

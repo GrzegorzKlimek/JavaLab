@@ -1,14 +1,68 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeMap;
+
 import org.junit.Test;
+
+import model.BinaryTree;
 
 public class TestBST {
 	
+	private BinaryTree testedEntity;
+	private Map<String, String> mock;
+	private Set<Entry<String,String>> mockEntries;
+	private static int numberOfTest = 500;
+	private Random rg;
 	
-	public static void main (String [] args) {
-		System.out.println("aa");
+	private String genRandString (int stringLenght) {
+		if  (stringLenght == 0) {return ""; }
+		char [] randCharAcc = new char [stringLenght];
+		for (int i = 0; i < stringLenght; i++) {
+			char randChar = rg.nextBoolean() ? (char) rg.nextInt(48) : (char) (49 + rg.nextInt(128 - 49));
+			randCharAcc[i] = randChar;
+		}
+		
+		return String.copyValueOf(randCharAcc);
 	}
+	
+	public TestBST () {
+		rg = new Random();
+		mock = new TreeMap<String, String>();
+		mockEntries = mock.entrySet();
+		testedEntity = new BinaryTree();
+		for (int i = 0; i <0 ; i++) {
+			String newKey = genRandString(rg.nextInt(20));
+			String newValue = genRandString(rg.nextInt(20));
+			mock.put(newKey, newValue);
+			testedEntity.put(newKey, newValue);
+		}
+		
+	}
+	
+
 	@Test
-	public void test () {
-		System.out.println("bb");
+	public void sizeTest () {
+		assertEquals(mock.size(), testedEntity.size());
 	}
+	
+	@Test
+	public void containsTest() {
+		 for (Entry<String, String> entry : mockEntries) {
+			 assertEquals(true, testedEntity.cointainsKey(entry.getKey()));
+		 }
+	}
+	
+	@Test
+	public void valuesTest() {
+		for (Entry<String, String> entry : mockEntries) {
+			 assertEquals(entry.getValue(), testedEntity.cointainsKey(entry.getKey()));
+		 }
+	}
+	
+
 
 }
