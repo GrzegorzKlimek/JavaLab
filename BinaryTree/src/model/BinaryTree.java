@@ -16,8 +16,11 @@ public class BinaryTree    {
 		size = 0;
 	}
 	
-	public void add (String newKey, String newValue) {
-		size ++;
+	public int getSize() {
+		return size;
+	}
+	
+	public void put (String newKey, String newValue) {
 		Node newNode =  new Node();
 		newNode.setKey(newKey);
 		newNode.setValue(newValue);
@@ -32,6 +35,14 @@ public class BinaryTree    {
 	public String get (String key) {
 		String result = root != null ? findValueForKey(key, root): null;
 		return result;
+	}
+	
+	public boolean cointainsKey (String key) {
+		return get(key) != null;
+	}
+	
+	public boolean isEmpty() {
+		return root == null;
 	}
 	
 	private String findValueForKey (String key, Node currentNode) {
@@ -57,6 +68,7 @@ public class BinaryTree    {
 			if (rootNode.getLeft() == null) {
 				rootNode.setLeft(insertNode);
 				insertNode.setFather(rootNode);
+				size++;
 			} else {
 				insert(insertNode, rootNode.getLeft());
 			}
@@ -68,6 +80,7 @@ public class BinaryTree    {
 			if (rootNode.getRight() == null) {
 				rootNode.setRight(insertNode);
 				insertNode.setFather(rootNode);
+				size++;
 			} else {
 				insert(insertNode, rootNode.getRight());
 			}
