@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import model.BinaryTree;
 
@@ -15,8 +16,25 @@ public class TestBST {
 	private BinaryTree testedEntity;
 	private Map<String, String> mock;
 	private Set<Entry<String,String>> mockEntries;
-	private static int numberOfTest = 500;
+	private static int numberOfTest = 1000;
 	private Random rg;
+	
+
+	public TestBST () {
+	
+		rg = new Random();
+		mock = new TreeMap<String, String>();
+		mockEntries = mock.entrySet();
+		testedEntity = new BinaryTree();
+		for (int i = 0; i < numberOfTest  ; i++) {
+			String newKey = genRandString(rg.nextInt(20));
+			String newValue = genRandString(rg.nextInt(20));
+			mock.put(newKey, newValue);
+			testedEntity.put(newKey, newValue);
+		}
+		
+	}
+	
 	
 	private String genRandString (int stringLenght) {
 		if  (stringLenght == 0) {return ""; }
@@ -27,20 +45,6 @@ public class TestBST {
 		}
 		
 		return String.copyValueOf(randCharAcc);
-	}
-	
-	public TestBST () {
-		rg = new Random();
-		mock = new TreeMap<String, String>();
-		mockEntries = mock.entrySet();
-		testedEntity = new BinaryTree();
-		for (int i = 0; i <0 ; i++) {
-			String newKey = genRandString(rg.nextInt(20));
-			String newValue = genRandString(rg.nextInt(20));
-			mock.put(newKey, newValue);
-			testedEntity.put(newKey, newValue);
-		}
-		
 	}
 	
 
@@ -59,7 +63,7 @@ public class TestBST {
 	@Test
 	public void valuesTest() {
 		for (Entry<String, String> entry : mockEntries) {
-			 assertEquals(entry.getValue(), testedEntity.cointainsKey(entry.getKey()));
+			 assertEquals(entry.getValue(), testedEntity.get(entry.getKey()));
 		 }
 	}
 	

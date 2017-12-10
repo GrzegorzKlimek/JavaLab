@@ -27,6 +27,7 @@ public class BinaryTree    {
 		
 		if (root == null) {
 			root = newNode;
+			size ++;
 		} else {
 			insert(newNode, root);
 		}
@@ -117,15 +118,22 @@ public class BinaryTree    {
 		return result;
 	}
 	
-	public void print( ) {
-		List<List<Node>> nodes = BSF();
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+	    String NEW_LINE = System.getProperty("line.separator");
+	    
+	    List<List<Node>> nodes = BSF();
 		for (int i = 0; i < nodes.size(); i++) {
 			List<Node> row = nodes.get(i);
 			for(int j = 0; j < row.size(); j++) {
-				System.out.print(row.get(j) + " | ");
+				result.append(row.get(j) + " | ");
 			}
-			System.out.println();
+			result.append(NEW_LINE);
 		}
+		
+		return result.toString();
+	    
 	}
 
 	
