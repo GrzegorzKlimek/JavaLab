@@ -27,6 +27,7 @@ public class ConsoleView {
 	}
 	
 	public void run () throws IOException {
+		System.out.println("Press '1' to make new poll. Press '2' to vote on some poll");
 		while (true) {
 			String input = br.readLine();
 			
@@ -57,24 +58,9 @@ public class ConsoleView {
 			i++;
 		}
 		
-		int n = options.size();
-		int numberOfOption;
-		boolean outOfRange;
+		String answer = br.readLine();
 		
-		do {
-			
-			System.out.println("Choose number of option to vote");
-			numberOfOption = Integer.parseInt( br.readLine());
-			outOfRange = numberOfOption < 0 || numberOfOption > n;
-			
-			 if (outOfRange) {
-				 System.out.println(WRONG_INPUT_MESS);
-			 } else {
-
-			 }
-			
-			
-		} while(outOfRange);
+		poll.vote(answer);
 	}
 	
 	private void choosePollToVote () throws NumberFormatException, IOException {
@@ -99,7 +85,7 @@ public class ConsoleView {
 			 if (outOfRange) {
 				 System.out.println(WRONG_INPUT_MESS);
 			 } else {
-				 
+				 voteInPoll(numberOfPoll);
 			 }
 			
 		} while(outOfRange);
