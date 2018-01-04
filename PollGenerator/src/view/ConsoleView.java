@@ -3,36 +3,38 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
-import javax.management.OperationsException;
-
-import data.Poll;
 import logic.PollsManager;
 
 public class ConsoleView {
 	
-	private final String ADD_OPTION_MESS = "Add option to poll or type 'exit' to sumbit poll";
-	private final String ADD_QUESTION_MESS = "Add question to poll" ;
-	private final String EXIT_MESS = "exit";
-	private final String WRONG_INPUT_MESS = "Wrong input. Try again!";
 	private BufferedReader br;
 	private PollsManager pollsManager;
+	private final String WELCOME_USER_MESS = "Welcome to our Poll program. "
+			+ "Do you want to anser to some poll or to create one?"
+			+ "choose 'a' to answer or 'p' to make new poll";
+
 	
-	public ConsoleView (PollsManager pollsManager) {
+	public ConsoleView(PollsManager pollsManager) {
+		this.pollsManager = pollsManager;
 		br = new BufferedReader(new InputStreamReader(System.in));
-		pollsManager = pollsManager;
 	}
 	
 	
-	public void run () {
+	public void run () throws IOException {
+		System.out.println(WELCOME_USER_MESS);
+		String userInput = br.readLine();
 		
+		switch (userInput) {
+		case "a" :
+			new ConAnswerPollView(pollsManager).run();
+			break;
+		case "p":
+			new ConMakeNewPollView(pollsManager).run();
+			break;
+		default:
+			break;
+		}
 	}
-	
 
 }

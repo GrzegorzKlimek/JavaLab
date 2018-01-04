@@ -11,5 +11,14 @@ public class PollsManager {
 	public PollsManager() {
 		polls = new ArrayList <Poll> ();
 	}
+	public void addNewPoll (Poll poll) {
+		polls.add(poll);
+	}
+	public List<Poll> getPolls() {
+		return polls;
+	}
+	public void setPolls(List<Poll> polls) {
+		this.polls = polls;
+	}
 
 }
