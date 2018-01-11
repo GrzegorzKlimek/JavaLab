@@ -49,3 +49,11 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+
+/bin/
+/.settings/
+.classpath
+.project
+/target/
+/.idea/
+*.iml
