@@ -1,5 +1,7 @@
 import java.io.IOException;
 
+import logic.Accountant;
+import model.FinaceReport;
 import utilies.CSVparser;
 import utilies.Converter;
 
@@ -9,12 +11,17 @@ public class Runner {
 		CSVparser fileReader = new CSVparser();
 		Converter converter = new Converter();
 		
-		String [] textData = fileReader.read("resources/dochod.txt");
-		double [] numeric = converter.convertTextIntoNumbers(textData);
+		String [] revenueText = fileReader.read("resources/dochod.txt");
+		String [] costsText = fileReader.read("resources/wydatki.txt");
 		
-		for (int i = 0; i < numeric.length; i++) {
-			System.out.println(numeric[i]);
-		}
+		double [] revenues = converter.convertTextIntoNumbers(revenueText);
+		double [] costs = converter.convertTextIntoNumbers(costsText);
+		
+		Accountant accountant = new Accountant();
+		
+		FinaceReport report = accountant.generateFinanceReport(revenues, costs);
+		
+		System.out.println(report);
 		
 	}
 

@@ -8,7 +8,6 @@ import logic.Accountant;
 
 public class FinaceReport {
 	
-	private Accountant accountant;
 		
 	private Map <Month, MonthlyFinances> yearFinanceReport;
 	
@@ -20,9 +19,6 @@ public class FinaceReport {
 	
 	private Month worstMonth;
 
-	public FinaceReport() {
-		accountant = new Accountant();
-	}
 
 	public Map<Month, MonthlyFinances> getYearFinanceReport() {
 		return yearFinanceReport;
@@ -63,8 +59,16 @@ public class FinaceReport {
 	public void setWorstMonth(Month worstMonth) {
 		this.worstMonth = worstMonth;
 	}
-
-	
+	@Override
+	public String toString() {
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("Best month was ").append(bestMonth).append(" ");
+		sb.append("Worst month was ").append(worstMonth).append(" ");
+		
+		return sb.toString();
+		
+	}
 	
 
 }

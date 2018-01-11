@@ -13,6 +13,15 @@ public class MonthlyFinances {
 	private double taxedIncome;
 	private double marginOfIncome;
 	
+	public MonthlyFinances (Month month, double revenue, double costs) {
+		this.month = month;
+		this.revenue = revenue;
+		this.costs = costs;
+		
+		income = calcIncome(revenue, costs);
+		taxedIncome = calcTaxedIncome(income, TAX_RATE);
+		marginOfIncome = calcMarginOfIncome(income, revenue);
+	}
 	
 	public Month getMonth() {
 		return month;
@@ -49,14 +58,5 @@ public class MonthlyFinances {
 		return income / revenue * 100;
 	}
 	
-	public MonthlyFinances (Month month, double revenue, double costs) {
-		this.month = month;
-		this.revenue = revenue;
-		this.costs = costs;
-		
-		income = calcIncome(revenue, costs);
-		taxedIncome = calcTaxedIncome(income, TAX_RATE);
-		marginOfIncome = calcMarginOfIncome(income, revenue);
-	}
 
 }
