@@ -18,7 +18,6 @@ public class CSVparser {
 			line = bufferReader.readLine();		
 			return line.split(cvsSplitBy);
 	}
-	     
 
 
 }
