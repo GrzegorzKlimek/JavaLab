@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CSVreader {
+public class CSVparser {
 
 	
 	public String []  read (String pathToCSVFile) throws IOException {	
@@ -19,7 +19,6 @@ public class CSVreader {
 			return line.split(cvsSplitBy);
 	}
 	     
-
 
 
 }
