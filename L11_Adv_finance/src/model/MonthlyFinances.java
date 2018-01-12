@@ -57,16 +57,22 @@ public class MonthlyFinances {
 	private double calcMarginOfIncome (double income, double revenue) {
 		return  (income / revenue ) * 100;
 	}
+	
+	private String format (double number) {
+		
+		return String.format("%.2f", number);
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append(month).append(": ");
-		sb.append("Revenue = ").append(revenue).append(",  ");
-		sb.append("Costs = ").append(costs).append(",  ");
-		sb.append("Income = ").append(income).append(",  ");
-		sb.append("Taxet income = ").append(taxedIncome).append(",  ");
-		sb.append("Margin of income = ").append(marginOfIncome);
+		sb.append("Revenue = ").append(format(revenue)).append(",  ");
+		sb.append("Costs = ").append(format(costs)).append(",  ");
+		sb.append("Income = ").append(format(income)).append(",  ");
+		sb.append("Taxed income = ").append(format(taxedIncome)).append(",  ");
+		sb.append("Margin of income = ").append(format(marginOfIncome));
 		
 		
 		return sb.toString();
