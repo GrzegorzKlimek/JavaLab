@@ -3,6 +3,8 @@ package model;
 import java.time.Month;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import logic.Accountant;
 
@@ -64,7 +66,15 @@ public class FinaceReport {
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("Best month was ").append(bestMonth).append(" ");
-		sb.append("Worst month was ").append(worstMonth).append(" ");
+		sb.append("Worst month was ").append(worstMonth).append("  ");
+		
+		Set<Entry<Month,MonthlyFinances>> monthReports = yearFinanceReport.entrySet();
+		
+		String newLine = System.lineSeparator();
+		for (Entry<Month, MonthlyFinances> entry : monthReports) {
+			sb.append(newLine).append(entry.getValue()).append(" ");
+		}
+		
 		
 		return sb.toString();
 		

@@ -55,7 +55,22 @@ public class MonthlyFinances {
 		return revenue - costs;
 	}
 	private double calcMarginOfIncome (double income, double revenue) {
-		return income / revenue * 100;
+		return  (income / revenue ) * 100;
+	}
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(month).append(": ");
+		sb.append("Revenue = ").append(revenue).append(",  ");
+		sb.append("Costs = ").append(costs).append(",  ");
+		sb.append("Income = ").append(income).append(",  ");
+		sb.append("Taxet income = ").append(taxedIncome).append(",  ");
+		sb.append("Margin of income = ").append(marginOfIncome);
+		
+		
+		return sb.toString();
+				
 	}
 	
 
