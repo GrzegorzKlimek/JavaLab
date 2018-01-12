@@ -72,7 +72,7 @@ public class MonthlyFinances {
 		sb.append("Costs = ").append(format(costs)).append(",  ");
 		sb.append("Income = ").append(format(income)).append(",  ");
 		sb.append("Taxed income = ").append(format(taxedIncome)).append(",  ");
-		sb.append("Margin of income = ").append(format(marginOfIncome));
+		sb.append("Margin of income = ").append(format(marginOfIncome)).append("%");
 		
 		
 		return sb.toString();

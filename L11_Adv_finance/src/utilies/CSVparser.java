@@ -1,12 +1,8 @@
 package utilies;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class CSVparser {
 
@@ -15,7 +11,8 @@ public class CSVparser {
 	        String line;
 	        String cvsSplitBy = ",";
 	        BufferedReader bufferReader = new BufferedReader(new FileReader(pathToCSVFile)); 
-			line = bufferReader.readLine();		
+			line = bufferReader.readLine();	
+			bufferReader.close();
 			return line.split(cvsSplitBy);
 	}
 
