@@ -2,9 +2,11 @@ package wwsis.wypozyczalnia.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import wwsis.wypozyczalnia.dataAccess.DataBase;
 import wwsis.wypozyczalnia.model.Car;
@@ -18,14 +20,15 @@ public class AppController {
 		db = new DataBase();
 	}
 	
-	public void makeReservation (Customer customer, Car car, boolean isEnded, LocalDate start, LocalDate end, int cost) {
+	public void makeReservation (Customer customer, Car car, LocalDate start, LocalDate end, int cost) {
 		Renting reservation = new Renting();
 		reservation.setCarID(car.getCariD());
 		reservation.setCustomerNIP(customer.getNIP());
 		reservation.setStart(start);
 		reservation.setEnd(end);
 		reservation.setCost(cost);
-		reservation.setisEnded(isEnded);
+		reservation.setisEnded(false);
+		db.saveRent(reservation);
 		
 	}
 	
@@ -50,7 +53,7 @@ public class AppController {
 		
 	}
 	
-	List <Renting> rentingsOfCustomer (Customer customer) {
+	public List <Renting> rentingsOfCustomer (Customer customer) {
 		
 		List<Renting> result = new ArrayList<Renting>();
 		Map<Integer, Renting> rentingsmap = db.getRentings();
@@ -60,6 +63,11 @@ public class AppController {
 			}
 		}
 		return result;
+	}
+	
+	public Collection <Car> getCarsInSystem() {
+		Collection<Car> cars =  db.getCars().values();
+		return cars;
 	}
 	
 	public boolean doCustomerExist (long NIP) {

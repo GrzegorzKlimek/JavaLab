@@ -1,7 +1,7 @@
 package wwsis.wypozyczalnia.model;
 
 public class Car {
-	private int globalID = 0;
+	private static int globalID = 0;
 	String model;
 	int yearOfProcution;
 	int course;
@@ -35,6 +35,16 @@ public class Car {
 	}
 	public void setCariD(int cariD) {
 		this.cariD = cariD;
+	}
+	@Override
+	public String toString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("Car ").append("id=").append(cariD);
+		stringBuilder.append(" model= ").append(model);
+		stringBuilder.append(" produced in ").append(yearOfProcution);
+		stringBuilder.append(" with course ").append(course);
+		return stringBuilder.toString();
+		
 	}
 
 }
