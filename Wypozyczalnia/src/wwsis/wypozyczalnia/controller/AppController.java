@@ -1,6 +1,7 @@
 package wwsis.wypozyczalnia.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -20,14 +21,17 @@ public class AppController {
 		db = new DataBase();
 	}
 	
-	public void makeReservation (Customer customer, Car car, LocalDate start, LocalDate end, int cost) {
+	public void makeReservation (long nipCustomer, int carId, int days, int cost) {
+		LocalDate start = LocalDate.now();
+		LocalDate end = start.plusDays(days);
+		Car car = db.getCars().get(carId);
+		Customer customer = db.getCustomers().get(nipCustomer);
 		Renting reservation = new Renting();
-		reservation.setCarID(car.getCariD());
-		reservation.setCustomerNIP(customer.getNIP());
+		reservation.setCar(car);
+		reservation.setCustomer(customer);
 		reservation.setStart(start);
 		reservation.setEnd(end);
 		reservation.setCost(cost);
-		reservation.setisEnded(false);
 		db.saveRent(reservation);
 		
 	}
@@ -53,12 +57,12 @@ public class AppController {
 		
 	}
 	
-	public List <Renting> rentingsOfCustomer (Customer customer) {
+	public List <Renting> rentingsOfCustomer (long nip) {
 		
 		List<Renting> result = new ArrayList<Renting>();
 		Map<Integer, Renting> rentingsmap = db.getRentings();
 		for (Entry<Integer, Renting> entry : rentingsmap.entrySet()) {
-			if (entry.getValue().getCustomerNIP() == customer.getNIP()) {
+			if (entry.getValue().getCustomer().getNIP() == nip) {
 				result.add(entry.getValue());
 			}
 		}
@@ -70,13 +74,16 @@ public class AppController {
 		return cars;
 	}
 	
-	public Collection<Customer> getCustomersinSystem () {
+	public Collection<Customer> getCustomersInSystem () {
 		Collection<Customer> customers = db.getCustomers().values();
 		return customers;
 	}
 	
 	public boolean doCustomerExist (long NIP) {
 		return db.getCustomers().containsKey(NIP);
+	}
+	public boolean doCarExist(int userId) {
+		return db.getCars().containsKey(userId);
 	}
 	
 

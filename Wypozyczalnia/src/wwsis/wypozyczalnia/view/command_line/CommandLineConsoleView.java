@@ -5,10 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+
+import javax.swing.text.StyledEditorKit.BoldAction;
 
 import wwsis.wypozyczalnia.controller.AppController;
 import wwsis.wypozyczalnia.model.Car;
 import wwsis.wypozyczalnia.model.Customer;
+import wwsis.wypozyczalnia.model.Renting;
 import wwsis.wypozyczalnia.view.View;
 
 public class CommandLineConsoleView implements View {
@@ -55,6 +59,9 @@ public class CommandLineConsoleView implements View {
 		case "list":
 			listing(tail(commands));
 			break;
+		case "rent":
+			rentACar(tail(commands));
+			break;
 		default:
 			System.out.println(WRONG_COMMANT_MESSAGE);
 		}
@@ -71,11 +78,14 @@ public class CommandLineConsoleView implements View {
 		} else {
 			String firstCommand = commands[0];
 			switch(firstCommand) {
-			case "car":
+			case "cars":
 				listCars();
 				break;
-			case "customer":
+			case "customers":
 				listCustomers();
+				break;
+			case "reservations":
+				listReservations(tail(commands));
 				break;
 			default:
 				System.out.println(WRONG_COMMANT_MESSAGE);
@@ -90,8 +100,17 @@ public class CommandLineConsoleView implements View {
 	}
 	
 	private void listCustomers() {
-		Collection<Customer> customers = controller.getCustomersinSystem();
+		Collection<Customer> customers = controller.getCustomersInSystem();
 		System.out.println(customers);
+	}
+	private void listReservations(String [] commands) {
+		if (commands.length != 1) {
+			System.out.println(WRONG_NUMBER_OF_ARGUMENTS);
+		} else {
+			
+			List<Renting> rentings = controller.rentingsOfCustomer(Long.parseLong(commands[0]));
+			System.out.println(rentings);
+		}
 	}
 	
 	private void adding (String [] commands) {
@@ -135,8 +154,39 @@ public class CommandLineConsoleView implements View {
 			controller.addNewCustomer(NIP, name, lastName, telephone);
 		}
 	} 
-
 	
+	private void rentACar(String [] commands) {
+		if (commands.length != 4) {
+			System.out.println(WRONG_NUMBER_OF_ARGUMENTS);
+		} else {
+			long nipCustomer = Long.parseLong(commands[0]); 
+			int carId = Integer.parseInt(commands[1]); ;
+			int days = Integer.parseInt(commands[2]);  
+			int cost= Integer.parseInt(commands[3]);  
+			
+			boolean validCar = controller.doCarExist(carId);
+			boolean validCustomer = controller.doCustomerExist(nipCustomer);
+			boolean validDuration = days > 0;
+			if (!validCar ) {
+				System.out.println("There are no car with this id in the system");
+			}
+			
+			if (!validCustomer) {
+				System.out.println("There are no customer with this nip in the system");
+			}
+			
+			if (!validDuration) {
+				System.out.println("Cannot make reservation for less than 1 day");
+			}
+			
+			if (validCar && validCustomer && validDuration) {
+				System.out.println("Making new reservation");
+				controller.makeReservation(nipCustomer, carId, days, cost);				
+			}
+		}
+	}
+	
+
 
 
 }

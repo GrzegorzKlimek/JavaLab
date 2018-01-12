@@ -39,10 +39,13 @@ public class Car {
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
+		String newLine = System.lineSeparator();
 		stringBuilder.append("Car ").append("id=").append(cariD);
 		stringBuilder.append(" model= ").append(model);
 		stringBuilder.append(" produced in ").append(yearOfProcution);
 		stringBuilder.append(" with course ").append(course);
+		stringBuilder.append(newLine);
+		
 		return stringBuilder.toString();
 		
 	}

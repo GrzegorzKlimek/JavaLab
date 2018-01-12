@@ -34,10 +34,13 @@ public class Customer {
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
+		String newLine = System.lineSeparator();
+		
 		stringBuilder.append("Customer ").append("nip=").append(NIP);
 		stringBuilder.append(" name= ").append(name);
 		stringBuilder.append(" last name= ").append(lastName);
-		stringBuilder.append(" teledone ").append(telephone);
+		stringBuilder.append(" telephone ").append(telephone);
+		stringBuilder.append(newLine);
 		return stringBuilder.toString();
 	}
 	
