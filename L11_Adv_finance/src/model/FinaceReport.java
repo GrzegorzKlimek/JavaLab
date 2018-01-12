@@ -11,7 +11,7 @@ import logic.Accountant;
 public class FinaceReport {
 	
 		
-	private Map <Month, MonthlyFinances> yearFinanceReport;
+	private List < MonthlyFinances> yearFinanceReport;
 	
 	private List<MonthlyFinances> goodMonths;
 	
@@ -22,11 +22,11 @@ public class FinaceReport {
 	private Month worstMonth;
 
 
-	public Map<Month, MonthlyFinances> getYearFinanceReport() {
+	public List < MonthlyFinances> getYearFinanceReport() {
 		return yearFinanceReport;
 	}
 
-	public void setYearFinanceReport(Map<Month, MonthlyFinances> yearFinanceReport) {
+	public void setYearFinanceReport(List < MonthlyFinances> yearFinanceReport) {
 		this.yearFinanceReport = yearFinanceReport;
 	}
 
@@ -68,11 +68,11 @@ public class FinaceReport {
 		sb.append("Best month was ").append(bestMonth).append(" ");
 		sb.append("Worst month was ").append(worstMonth).append("  ");
 		
-		Set<Entry<Month,MonthlyFinances>> monthReports = yearFinanceReport.entrySet();
+
 		
 		String newLine = System.lineSeparator();
-		for (Entry<Month, MonthlyFinances> entry : monthReports) {
-			sb.append(newLine).append(entry.getValue()).append(" ");
+		for (MonthlyFinances monthReport : yearFinanceReport) {
+			sb.append(newLine).append(monthReport).append(" ");
 		}
 		
 		
