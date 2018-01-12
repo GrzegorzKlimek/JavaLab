@@ -70,6 +70,11 @@ public class AppController {
 		return cars;
 	}
 	
+	public Collection<Customer> getCustomersinSystem () {
+		Collection<Customer> customers = db.getCustomers().values();
+		return customers;
+	}
+	
 	public boolean doCustomerExist (long NIP) {
 		return db.getCustomers().containsKey(NIP);
 	}

@@ -8,11 +8,13 @@ import java.util.Collection;
 
 import wwsis.wypozyczalnia.controller.AppController;
 import wwsis.wypozyczalnia.model.Car;
+import wwsis.wypozyczalnia.model.Customer;
 import wwsis.wypozyczalnia.view.View;
 
 public class CommandLineConsoleView implements View {
 	
 	private static String WRONG_COMMANT_MESSAGE = "Not understandeble command";
+	private static String WRONG_NUMBER_OF_ARGUMENTS = "Wrong number of customers";
 	private AppController controller;
 	
 	public CommandLineConsoleView() {
@@ -44,12 +46,10 @@ public class CommandLineConsoleView implements View {
 	}
 	
 	private void executeCommand (String [] commands) {
-		validateSize(commands);
 		String firstCommand = commands[0];
 		
 		switch(firstCommand) {
 		case "add":
-			System.out.print("Adding new ");
 			adding(tail(commands));
 			break;
 		case "list":
@@ -60,28 +60,26 @@ public class CommandLineConsoleView implements View {
 		}
 	}
 	
-	private void validateSize(String [] commands) {
-		if (commands.length < 1) {
-			System.out.println(WRONG_COMMANT_MESSAGE);
-			return;
-		}
-	}
 	
 	private String [] tail (String [] commands) {
 		return Arrays.copyOfRange(commands, 1,commands.length);
 	}
 	
 	private void listing (String [] commands) {
-		validateSize(commands);
-		String firstCommand = commands[0];
-		switch(firstCommand) {
-		case "car":
-			listCars();
-			break;
-		case "customer":
-			break;
-		default:
+		if (commands.length < 1) {
 			System.out.println(WRONG_COMMANT_MESSAGE);
+		} else {
+			String firstCommand = commands[0];
+			switch(firstCommand) {
+			case "car":
+				listCars();
+				break;
+			case "customer":
+				listCustomers();
+				break;
+			default:
+				System.out.println(WRONG_COMMANT_MESSAGE);
+			}			
 		}
 		
 	}
@@ -91,21 +89,27 @@ public class CommandLineConsoleView implements View {
 		System.out.println(cars);
 	}
 	
+	private void listCustomers() {
+		Collection<Customer> customers = controller.getCustomersinSystem();
+		System.out.println(customers);
+	}
+	
 	private void adding (String [] commands) {
-		validateSize(commands);
-		String firstCommand = commands[0];
-		switch(firstCommand) {
-		case "car":
-			System.out.print("car ");
-			addNewCar(tail(commands));
-			break;
-		case "customer":
-			System.out.print("customer ");
-			break;
-		default:
-			System.out.println(WRONG_COMMANT_MESSAGE);
+		if (commands.length < 2) {
+			System.out.println(WRONG_NUMBER_OF_ARGUMENTS);
+		} else {
+			String firstCommand = commands[0];
+			switch(firstCommand) {
+			case "car":
+				addNewCar(tail(commands));
+				break;
+			case "customer":
+				addNewCustomer(tail(commands));
+				break;
+			default:
+				System.out.println(WRONG_COMMANT_MESSAGE);
+			}			
 		}
-		
 	}
 	
 	private void addNewCar(String [] commands) {
@@ -116,10 +120,21 @@ public class CommandLineConsoleView implements View {
 			int yearOfProduction = Integer.parseInt(commands[1]);
 			int course = Integer.parseInt(commands[2]);
 			controller.addNewCar(model, yearOfProduction, course);
-			System.out.print("model: " + model + " producted in " + yearOfProduction + " with course " + course);
 		}
 		
 	}
+	
+	private void addNewCustomer (String [] commands) {
+		if (commands.length != 4) {
+			System.out.println(WRONG_NUMBER_OF_ARGUMENTS);
+		} else {
+			long NIP = Long.parseLong(commands[0]); 
+			String name = commands[1] ;
+			String lastName = commands[2] ;
+			long telephone = Long.parseLong(commands[3]) ;
+			controller.addNewCustomer(NIP, name, lastName, telephone);
+		}
+	} 
 
 	
 
