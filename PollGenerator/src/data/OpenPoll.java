@@ -13,4 +13,6 @@ public class OpenPoll extends Poll {
 		this.answers = answers;
 	}
 
+
+
 }

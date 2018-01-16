@@ -6,9 +6,14 @@ import java.util.Map;
 import java.util.UUID;
 
 public class Poll {
-
+	static int globalID = 1;
 	protected String question;
-	private  UUID id = UUID.randomUUID();
+	private  int id;
+
+	public Poll() {
+		id = globalID;
+		globalID ++;
+	}
 	
 	public String getQuestion() {
 		return question;
