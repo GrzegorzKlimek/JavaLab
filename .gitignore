@@ -55,5 +55,6 @@ local.properties
 .classpath
 .project
 /target/
-/.idea/
+*/.idea/
+/.idea
 *.iml
