@@ -17,4 +17,14 @@ public class Poll {
 		this.question = question;
 	}
 
+	@Override
+	public String toString() {
+		String newLine = System.lineSeparator();
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(" Poll id =").append(id);
+		stringBuilder.append(newLine);
+		stringBuilder.append("Question: ").append(question).append(".");
+		return stringBuilder.toString();
+	}
+
 }

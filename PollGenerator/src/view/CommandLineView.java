@@ -19,11 +19,13 @@ public class CommandLineView {
     private PollsManager controller;
     private BufferedReader bufferedReader;
     private  PollAdder pollAdder;
+    private  PollLister pollLister;
 
     public  CommandLineView () {
         controller = new PollsManager();
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         pollAdder = new PollAdder(controller, bufferedReader);
+        pollLister = new PollLister(controller, bufferedReader);
     }
 
 
@@ -57,7 +59,7 @@ public class CommandLineView {
                 adding(ViewUtilis.tail(commands));
                 break;
             case "list":
-
+                pollLister.list(ViewUtilis.tail(commands));
                 break;
             case "vote":
 
@@ -77,6 +79,8 @@ public class CommandLineView {
             System.out.println(ViewUtilis.WRONG_COMMANT_MESSAGE);
         }
     }
+
+
 
 
 
