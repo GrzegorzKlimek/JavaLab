@@ -15,7 +15,7 @@ public class PollDoerFabric {
             case "list":
                 product = new PollLister(controller, bufferedReader);
                 break;
-            case "anser":
+            case "answer":
                 product = new PollAnswerer(controller, bufferedReader);
                 break;
             default:
