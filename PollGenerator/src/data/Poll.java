@@ -26,7 +26,8 @@ public class Poll {
 	public String toString() {
 		String newLine = System.lineSeparator();
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(" Poll id =").append(id);
+		String typeOfPoll = this instanceof OpenPoll ? "OPEN" : "CLOSE";
+		stringBuilder.append(" Poll id =").append(id).append(" type: ").append(typeOfPoll);
 		stringBuilder.append(newLine);
 		stringBuilder.append("Question: ").append(question).append(".");
 		return stringBuilder.toString();

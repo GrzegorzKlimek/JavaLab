@@ -15,17 +15,19 @@ import java.util.List;
 
 public class CommandLineView {
 
+    public static final String WRONG_COMMANT_MESSAGE = "Not understandeble command";
+    public static final String WRONG_NUMBER_OF_ARGUMENTS = "Wrong number of arguments";
 
     private PollsManager controller;
     private BufferedReader bufferedReader;
-    private  PollAdder pollAdder;
-    private  PollLister pollLister;
+    private  PollDoerFabric pollDoerFabric;
+
 
     public  CommandLineView () {
         controller = new PollsManager();
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        pollAdder = new PollAdder(controller, bufferedReader);
-        pollLister = new PollLister(controller, bufferedReader);
+        pollDoerFabric = new PollDoerFabric();
+
     }
 
 
@@ -52,35 +54,23 @@ public class CommandLineView {
     }
 
     private void executeCommand(String[] commands) throws IOException {
+        if (commands.length < 1) {
+            System.out.println(WRONG_COMMANT_MESSAGE);
+            return;
+        }
         String firstCommand = commands[0];
 
-        switch (firstCommand) {
-            case "add":
-                adding(ViewUtilis.tail(commands));
-                break;
-            case "list":
-                pollLister.list(ViewUtilis.tail(commands));
-                break;
-            case "vote":
+        String [] restOfCommands = PollDoer.tail(commands);
 
-                break;
-            default:
-                System.out.println(ViewUtilis.WRONG_COMMANT_MESSAGE);
-        }
-    }
+        PollDoer pollDoer = pollDoerFabric.produce(firstCommand, controller, bufferedReader);
 
-
-    private void adding(String[] commands) throws IOException {
-        if (commands.length < 2) {
-            System.out.println(ViewUtilis.WRONG_NUMBER_OF_ARGUMENTS);
-        } else if (commands[0].equals("poll")) {
-            pollAdder.addPoll(ViewUtilis.tail(commands));
+        if (pollDoer != null) {
+            pollDoer.doJob(restOfCommands);
         } else {
-            System.out.println(ViewUtilis.WRONG_COMMANT_MESSAGE);
+            System.out.println(WRONG_COMMANT_MESSAGE);
+            return;
         }
     }
-
-
 
 
 

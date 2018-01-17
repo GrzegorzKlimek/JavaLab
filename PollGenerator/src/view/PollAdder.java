@@ -11,71 +11,94 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PollAdder {
-    private PollsManager controller;
-    private BufferedReader bufferedReader;
+public class PollAdder extends PollDoer {
 
-    public PollAdder (PollsManager controller , BufferedReader bufferedReader) {
-        this.controller = controller;
-        this.bufferedReader = bufferedReader;
+    public PollAdder(PollsManager controller, BufferedReader bufferedReader) {
+        super(controller, bufferedReader);
     }
 
-    public void addPoll (String[] commands) throws IOException {
-        if (commands.length != 1) {
-            System.out.println(ViewUtilis.WRONG_NUMBER_OF_ARGUMENTS);
+    @Override
+    public void doJob(String[] commands) {
+        if (!super.validateCommand(commands, "poll", 1)) {
+            return;
         }
-        String command = commands[0];
-        switch (command) {
-            case "open":
-                addOpenPoll();
-                break;
-            case "close":
-                addClosePoll();
-                break;
-            default:
-                System.out.println(ViewUtilis.WRONG_COMMANT_MESSAGE);
-        }
-    }
+        String command = commands[1];
 
-    private Poll getPollWithQuestion (boolean isClose) throws IOException {
+            switch (command) {
+                case "open":
+                    addOpenPoll();
+                    break;
+                case "close":
+                    addClosePoll();
+                    break;
+                default:
+                    System.out.println(CommandLineView.WRONG_COMMANT_MESSAGE);
+            }
+
+        }
+
+
+    private Poll getPollWithQuestion(boolean isClose)  {
         System.out.println("Add question to the poll");
-        String question = bufferedReader.readLine();
-        Poll poll = isClose ? new ClosePoll() : new OpenPoll();
+        Poll poll = null;
+        String question = null;
+        try {
+            question = bufferedReader.readLine();
+            poll = isClose ? new ClosePoll() : new OpenPoll();
         poll.setQuestion(question);
-        return  poll;
+        } catch ( IOException exeption) {
+            System.out.println(CommandLineView.WRONG_COMMANT_MESSAGE);
+        }
+        return poll;
     }
 
-    private void addOpenPoll () throws IOException {
+    private void addOpenPoll()  {
 
         OpenPoll openPoll = (OpenPoll) getPollWithQuestion(false);
         controller.addNewPoll(openPoll);
 
     }
 
-    private void addClosePoll () throws IOException {
+    private void addClosePoll() {
         ClosePoll closePoll = (ClosePoll) getPollWithQuestion(true);
         List<Option> options = getPollOptions();
+        if (options != null) {
         closePoll.setOptions(options);
         controller.addNewPoll(closePoll);
-
-    }
-
-    private List<Option> getPollOptions () throws IOException {
-        System.out.println("Insert number of options in poll");
-        int numberOfOptions = Integer.parseInt(bufferedReader.readLine());
-        List<Option> options = new ArrayList<Option>(numberOfOptions);
-        for (int i = 0; i < numberOfOptions; i++) {
-            options.add(getOption());
+        } else {
+            System.out.println(CommandLineView.WRONG_COMMANT_MESSAGE);
         }
-        return options;
+
     }
 
-    private Option getOption () throws  IOException {
+    private List<Option> getPollOptions() {
+        System.out.println("Insert number of options in poll");
+        int numberOfOptions = 0;
+        List<Option> options = null;
+        try {
+            numberOfOptions = Integer.parseInt(bufferedReader.readLine());
+            options = new ArrayList<Option>(numberOfOptions);
+            for (int i = 0; i < numberOfOptions; i++) {
+                options.add(getOption());
+            }
+        } catch (NumberFormatException exeption) {
+            System.out.println("invalid number of options in poll");
+        } catch ( IOException exeption) {
+            System.out.println(CommandLineView.WRONG_COMMANT_MESSAGE);
+        } finally {
+
+        return options;
+        }
+    }
+
+
+
+    private Option getOption() throws IOException {
         System.out.println("Insert option to poll");
         String contendOfOption = bufferedReader.readLine();
         Option newOption = new Option();
         newOption.setContent(contendOfOption);
-        return  newOption;
+        return newOption;
     }
 
 

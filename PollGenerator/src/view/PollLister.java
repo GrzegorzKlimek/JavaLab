@@ -7,63 +7,41 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
-public class PollLister {
+public class PollLister  extends PollDoer {
 
-    private PollsManager controller;
-    private BufferedReader bufferedReader;
 
-    public PollLister (PollsManager controller , BufferedReader bufferedReader) {
-        this.controller = controller;
-        this.bufferedReader = bufferedReader;
+    public PollLister(PollsManager controller, BufferedReader bufferedReader) {
+        super(controller, bufferedReader);
     }
-    public void list (String[] commands) throws IOException {
+
+    @Override
+    public void doJob(String[] commands)  {
         if (commands.length < 1) {
-            System.out.println(ViewUtilis.WRONG_NUMBER_OF_ARGUMENTS);
+            System.out.println(CommandLineView.WRONG_NUMBER_OF_ARGUMENTS);
+            return;
         }
         String command = commands[0];
         switch (command) {
             case "poll":
-                listPoll(ViewUtilis.tail(commands));
+                listPoll(tail(commands));
                 break;
             case "polls":
                 listPolls();
                 break;
             default:
-                System.out.println(ViewUtilis.WRONG_COMMANT_MESSAGE);
+                System.out.println(CommandLineView.WRONG_COMMANT_MESSAGE);
         }
     }
 
-    private void listPolls () {
-        List <Poll> polls = controller.getPolls();
+    private void listPolls() {
+        List<Poll> polls = controller.getPolls();
         for (Poll poll : polls) {
             System.out.println(poll);
         }
     }
 
-    private void listPoll (String[] commands) {
-        if (commands.length < 2) {
-            System.out.println(ViewUtilis.WRONG_NUMBER_OF_ARGUMENTS);
-            return;
-        }
-
-        String comand = commands[0];
-
-        if (!comand.equals("id")) {
-            System.out.println(ViewUtilis.WRONG_COMMANT_MESSAGE);
-            return;
-        }
-
-        try {
-        int id =Integer.parseInt(commands[1]);
-
-        Poll poll = controller.getPolls().get(id -1);
+    private void listPoll(String[] commands) {
+        Poll poll = super.getPoll(commands);
         System.out.println(poll);
-        } catch (NumberFormatException exeption) {
-            System.out.println("insert number as id!");
-        } catch (IndexOutOfBoundsException exeption) {
-            System.out.println("There are no poll with such id!");
-        }
-
-
     }
 }
