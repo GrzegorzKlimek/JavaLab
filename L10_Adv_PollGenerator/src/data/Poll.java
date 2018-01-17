@@ -10,16 +10,17 @@ public class Poll {
 	protected String question;
 	private  int id;
 
-	public Poll() {
-		id = globalID;
-		globalID ++;
-	}
 	
 	public String getQuestion() {
 		return question;
 	}
 	public void setQuestion(String question) {
 		this.question = question;
+	}
+	
+	public void setID () {
+		id = globalID;
+		globalID ++;
 	}
 
 	@Override

@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class main {
+public class MainClass {
 
 	private static void zad1() {
 		System.out.println("Podaj kojeno 3 liczby aby wyliczyc srednia");

@@ -12,6 +12,7 @@ public class PollsManager {
 		polls = new ArrayList <Poll> ();
 	}
 	public void addNewPoll (Poll poll) {
+		poll.setID();
 		polls.add(poll);
 	}
 	public List<Poll> getPolls() {

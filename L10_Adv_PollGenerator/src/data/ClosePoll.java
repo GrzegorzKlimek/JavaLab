@@ -11,6 +11,7 @@ public class ClosePoll extends Poll {
 	}
 
 	public void setOptions(List<Option> options) {
+
 		this.options = options;
 	}
 
