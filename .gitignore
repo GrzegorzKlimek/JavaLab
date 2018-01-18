@@ -52,7 +52,10 @@ local.properties
 
 /bin/
 /.settings/
+.settings/
+*/.settings/
 .classpath
+*/.classpath
 .project
 /target/
 */.idea/
