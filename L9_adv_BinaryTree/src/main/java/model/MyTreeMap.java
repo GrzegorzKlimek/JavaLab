@@ -7,15 +7,15 @@ import java.util.Map;
 import java.util.Set;
 
 public class MyTreeMap < K extends Comparable<K> , V> implements Map<K, V>  {
-	
+
 	private Node <K, V> root;
-	
+
 	private int size;
-	
+
 	public MyTreeMap() {
 		size = 0;
 	}
-	
+
 	public int size() {
 		return size;
 	}
@@ -25,7 +25,7 @@ public class MyTreeMap < K extends Comparable<K> , V> implements Map<K, V>  {
 		Node <K, V> newNode =  new Node ();
 		newNode.setKey(newKey);
 		newNode.setValue(newValue);
-		
+
 		if (root == null) {
 			root = newNode;
 			size ++;
@@ -34,7 +34,7 @@ public class MyTreeMap < K extends Comparable<K> , V> implements Map<K, V>  {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public V get (Object key) {
 		V result = root != null ? findValueForKey((K)key, root): null;
@@ -89,8 +89,8 @@ public class MyTreeMap < K extends Comparable<K> , V> implements Map<K, V>  {
 		//TODO
 		return false;
 	}
-	
-	
+
+
 	@Override
 	public V remove(Object key) {
 		//TODO
@@ -184,5 +184,5 @@ public class MyTreeMap < K extends Comparable<K> , V> implements Map<K, V>  {
 	}
 
 
-	
+
 }
