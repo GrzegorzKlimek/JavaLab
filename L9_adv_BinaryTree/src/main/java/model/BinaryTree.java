@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class BinaryTree    {
+public class BinaryTree  < K extends Comparable<K> , V> implements Map<K, V>  {
 	
-	private Node root;
+	private Node <K, V> root;
 	
 	private int size;
 	
@@ -19,9 +19,10 @@ public class BinaryTree    {
 	public int size() {
 		return size;
 	}
-	
-	public void put (String newKey, String newValue) {
-		Node newNode =  new Node();
+
+	@Override
+	public V put (K newKey, V newValue) {
+		Node <K, V> newNode =  new Node ();
 		newNode.setKey(newKey);
 		newNode.setValue(newValue);
 		
@@ -29,7 +30,7 @@ public class BinaryTree    {
 			root = newNode;
 			size ++;
 		} else {
-			insert(newNode, root);
+			return insert(newNode, root);
 		}
 	}
 	
@@ -45,24 +46,79 @@ public class BinaryTree    {
 	public boolean isEmpty() {
 		return root == null;
 	}
-	
-	private String findValueForKey (String key, Node currentNode) {
-		int diffrence = key.compareTo(currentNode.getKey());
-		String result;
-		if (diffrence == 0) {
-			result = currentNode.getValue();
-		} else if (diffrence > 0) {
-			 result = currentNode.getRight() != null ? findValueForKey(key, currentNode.getRight()) : null;
-			
-		} else {
-			result = currentNode.getLeft() != null ? findValueForKey(key, currentNode.getLeft()) : null;
-			
-		}
-		return result;
+
+	@Override
+	public boolean containsKey(Object key) {
+		return false;
 	}
-	
-	private void insert(Node insertNode, Node rootNode) {
-		
+
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+	    String NEW_LINE = System.getProperty("line.separator");
+
+	    List<List<Node>> nodes = BSF();
+		for (int i = 0; i < nodes.size(); i++) {
+			List<Node> row = nodes.get(i);
+			for(int j = 0; j < row.size(); j++) {
+				result.append(row.get(j) + " | ");
+			}
+			result.append(NEW_LINE);
+		}
+
+		return result.toString();
+
+	}
+	@Override
+	public boolean containsValue(Object value) {
+		//TODO
+		return false;
+	}
+
+	@Override
+	public V get(Object key) {
+		//TODO
+		return null;
+	}
+
+
+
+	@Override
+	public V remove(Object key) {
+		//TODO
+		return null;
+	}
+
+	@Override
+	public void putAll(Map<? extends K, ? extends V> m) {
+		//TODO
+	}
+
+	@Override
+	public void clear() {
+		//TODO
+	}
+
+	@Override
+	public Set<K> keySet() {
+		//TODO
+		return null;
+	}
+
+	@Override
+	public Collection<V> values() {
+		//TODO
+		return null;
+	}
+
+	@Override
+	public Set<Entry<K, V>> entrySet() {
+		return null;
+	}
+
+
+	private V insert(Node <K,V> insertNode, Node <K,V> rootNode) {
+
 		int diffrence = insertNode.compareTo(rootNode);
 
 		if (diffrence < 0) {
@@ -87,17 +143,18 @@ public class BinaryTree    {
 			}
 
 		}
-		
-		
+		return  null;
+
+
 	}
-	
+
 	private List< List<Node> > BSF () {
 		List< List<Node> > result = new ArrayList<List<Node>>();
 		List<Node> upperLevel = new ArrayList<Node>();
 		if (root != null) {
 			upperLevel.add(root);
 			result.add(upperLevel);
-			
+
 			while (upperLevel.size() > 0) {
 				List<Node> bootomLevel = new ArrayList<Node>();
 				for (int i = 0; i < upperLevel.size(); i++) {
@@ -113,28 +170,11 @@ public class BinaryTree    {
 				result.add(bootomLevel);
 				upperLevel = bootomLevel;
 			};
-	
+
 		}
 		return result;
 	}
-	
-	@Override
-	public String toString() {
-		StringBuilder result = new StringBuilder();
-	    String NEW_LINE = System.getProperty("line.separator");
-	    
-	    List<List<Node>> nodes = BSF();
-		for (int i = 0; i < nodes.size(); i++) {
-			List<Node> row = nodes.get(i);
-			for(int j = 0; j < row.size(); j++) {
-				result.append(row.get(j) + " | ");
-			}
-			result.append(NEW_LINE);
-		}
-		
-		return result.toString();
-	    
-	}
+
 
 	
 }
