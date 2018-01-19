@@ -10,11 +10,11 @@ import java.util.TreeMap;
 import org.junit.Test;
 
 
-import model.BinaryTree;
+import model.MyTreeMap;
 
 public class TestBST {
 	
-	private BinaryTree testedEntity;
+	private MyTreeMap testedEntity;
 	private Map<String, String> mock;
 	private Set<Entry<String,String>> mockEntries;
 	private static int numberOfTest = 1000;
@@ -24,9 +24,9 @@ public class TestBST {
 	public TestBST () {
 	
 		rg = new Random();
-		mock = new TreeMap<String, String>();
+		mock = new TreeMap();
 		mockEntries = mock.entrySet();
-		testedEntity = new BinaryTree();
+		testedEntity = new MyTreeMap();
 		for (int i = 0; i < numberOfTest  ; i++) {
 			String newKey = genRandString(rg.nextInt(20));
 			String newValue = genRandString(rg.nextInt(20));
@@ -57,7 +57,7 @@ public class TestBST {
 	@Test
 	public void containsTest() {
 		 for (Entry<String, String> entry : mockEntries) {
-			 assertEquals(true, testedEntity.cointainsKey(entry.getKey()));
+			 assertEquals(true, testedEntity.containsKey(entry.getKey()));
 		 }
 	}
 	
