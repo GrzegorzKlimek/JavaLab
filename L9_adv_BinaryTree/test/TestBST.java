@@ -24,7 +24,7 @@ public class TestBST {
 	public TestBST () {
 	
 		rg = new Random();
-		mock = new TreeMap<String, String>();
+		mock = new TreeMap();
 		mockEntries = mock.entrySet();
 		testedEntity = new MyTreeMap();
 		for (int i = 0; i < numberOfTest  ; i++) {
