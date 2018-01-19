@@ -1,11 +1,8 @@
 import static org.junit.Assert.assertEquals;
 
 
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeMap;
 
 import org.junit.Test;
 
@@ -14,9 +11,11 @@ import model.MyTreeMap;
 
 public class TestBST {
 	
-	private MyTreeMap testedEntity;
-	private Map<String, String> mock;
-	private Set<Entry<String,String>> mockEntries;
+	private Map<String, Integer>  testedEntity;
+	private Map<String, Integer> mock;
+	private List<String> keys;
+	private  List<Integer> values;
+
 	private static int numberOfTest = 1000;
 	private Random rg;
 	
@@ -25,13 +24,16 @@ public class TestBST {
 	
 		rg = new Random();
 		mock = new TreeMap();
-		mockEntries = mock.entrySet();
 		testedEntity = new MyTreeMap();
+		keys = new ArrayList<>();
+		values = new ArrayList<>();
 		for (int i = 0; i < numberOfTest  ; i++) {
 			String newKey = genRandString(rg.nextInt(20));
-			String newValue = genRandString(rg.nextInt(20));
+			int newValue = rg.nextInt(20);
 			mock.put(newKey, newValue);
 			testedEntity.put(newKey, newValue);
+			keys.add(newKey);
+			values.add(newValue);
 		}
 		
 	}
@@ -51,21 +53,29 @@ public class TestBST {
 
 	@Test
 	public void sizeTest () {
+
 		assertEquals(mock.size(), testedEntity.size());
 	}
 	
 	@Test
-	public void containsTest() {
-		 for (Entry<String, String> entry : mockEntries) {
-			 assertEquals(true, testedEntity.containsKey(entry.getKey()));
+	public void containsKeyTest() {
+		 for (String key : keys) {
+			 assertEquals(mock.containsKey(key), testedEntity.containsKey(key));
 		 }
 	}
 	
 	@Test
-	public void valuesTest() {
-		for (Entry<String, String> entry : mockEntries) {
-			 assertEquals(entry.getValue(), testedEntity.get(entry.getKey()));
+	public void containsValueTest() {
+		for (Integer value : values) {
+			 assertEquals( "for value: " + value ,mock.containsValue(value), testedEntity.containsValue(value));
 		 }
+	}
+
+	@Test
+	public void getTest() {
+		for (String key : keys) {
+			assertEquals(mock.get(key), testedEntity.get(key));
+		}
 	}
 	
 
