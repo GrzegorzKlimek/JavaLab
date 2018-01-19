@@ -1,17 +1,12 @@
 package display;
 
-import java.io.File;
-import java.util.List;
-import java.util.Random;
-
-import model.BinaryTree;
-import model.Node;
+import model.MyTreeMap;
 
 public class ConsoleView {
 	public static void main (String [] args) {
 		
 		
-		 BinaryTree tree = new BinaryTree();
+		 MyTreeMap tree = new MyTreeMap();
 		
 
 		
